@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
@@ -22,6 +23,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $qtd = random_int(1, 4);
+        for ($item = 0; $item < $qtd; $item++) {
+            DB::table('meeting_user')->insert([
+                'meeting_id' => $this->faker->numberBetween(1, 4),
+                'user_id' => $this->faker->numberBetween(1, 5),
+            ]);
+        }
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
