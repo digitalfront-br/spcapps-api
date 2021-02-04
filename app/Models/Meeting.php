@@ -12,4 +12,9 @@ class Meeting extends Model
     protected $fillable = [
         'title'
     ];
+
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class);
+    }
 }
