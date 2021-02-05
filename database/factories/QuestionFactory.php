@@ -22,7 +22,8 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(5)
+            'title' => $this->faker->sentence(5),
+            'category_id' => $this->faker->numberBetween(1, 10)
         ];
     }
 }
