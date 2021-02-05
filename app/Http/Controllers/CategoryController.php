@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(Category::paginate(10), 200);
+        return response()->json(Category::paginate(30), 200);
     }
 
     /**
@@ -65,6 +65,6 @@ class CategoryController extends Controller
 
     public function categoryQuestion()
     {
-        return response()->json(Category::with('questions')->paginate(20), 200);
+        return response()->json(Category::with('questions')->inRandomOrder()->paginate(7), 200);
     }
 }
