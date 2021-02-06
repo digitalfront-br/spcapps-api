@@ -13,4 +13,6 @@ class Question extends Model
         'title',
         'category_id'
     ];
+
+    public $timestamps = false;
 }
