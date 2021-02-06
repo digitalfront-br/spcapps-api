@@ -23,7 +23,7 @@ class QuestionFactory extends Factory
      */
     public function definition()
     {
-        Excel::import(new QuestionImport, storage_path('app/tablesheets/questions.xlsx'));
+        Excel::import(new QuestionImport, storage_path('tablesheets/questions.xlsx'));
         return [];
     }
 }

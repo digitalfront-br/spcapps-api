@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        Excel::import(new CategoryImport, storage_path('app/tablesheets/categories.xlsx'));
+        Excel::import(new CategoryImport, storage_path('tablesheets/categories.xlsx'));
         return [];
     }
 }
