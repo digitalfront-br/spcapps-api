@@ -23,19 +23,21 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $qtd = random_int(1, 4);
-        for ($item = 0; $item < $qtd; $item++) {
-            DB::table('meeting_user')->insert([
-                'meeting_id' => $this->faker->numberBetween(1, 4),
-                'user_id' => $this->faker->numberBetween(1, 5),
+        $users = array(
+            ['phone' => '31987324565', 'name' => 'Thiago Augusto', 'email' => 'thiago.digitalfront@gmail.com'],
+            ['phone' => '31986435111', 'name' => 'Daniel Nunes', 'email' => 'danielpnunes@gmail.com'],
+            ['phone' => '31998420055', 'name' => 'José Ricardo', 'email' => 'jrer@uol.com.br']
+        );
+        foreach ($users as $user) {
+            User::create([
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'phone' => $user['phone'],
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token' => Str::random(10),
             ]);
         }
-        return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ];
+        return [];
     }
 }

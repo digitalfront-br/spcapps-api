@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Imports\QuestionImport;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionFactory extends Factory
 {
@@ -21,9 +23,7 @@ class QuestionFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'title' => $this->faker->sentence(5),
-            'category_id' => $this->faker->numberBetween(1, 10)
-        ];
+        Excel::import(new QuestionImport, storage_path('app/tablesheets/questions.xlsx'));
+        return [];
     }
 }

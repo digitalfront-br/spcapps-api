@@ -25,12 +25,13 @@ class MeetingFactory extends Factory
         $qtd = random_int(5, 20);
         for ($item = 0; $item < $qtd; $item++) {
             DB::table('meeting_question')->insert([
-                'meeting_id' => $this->faker->numberBetween(1, 4),
+                'meeting_id' => $this->faker->numberBetween(1, $qtd),
                 'question_id' => $this->faker->numberBetween(1, 200),
             ]);
         }
         return [
-            'title' => $this->faker->firstNameMale
+            'title' => ('paciente ' . $this->faker->firstName),
+            'user_id' => $this->faker->numberBetween(1, 3),
         ];
     }
 }

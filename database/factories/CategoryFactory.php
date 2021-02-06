@@ -24,9 +24,6 @@ class CategoryFactory extends Factory
     public function definition()
     {
         Excel::import(new CategoryImport, storage_path('app/tablesheets/categories.xlsx'));
-        return [
-            'title' => $this->faker->word(),
-            'description' => $this->faker->paragraph(3)
-        ];
+        return [];
     }
 }
