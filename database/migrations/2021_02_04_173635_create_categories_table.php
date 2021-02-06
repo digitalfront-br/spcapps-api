@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('banner')->default('https://picsum.photos/seed/picsum/500/300');
             $table->text('description');
         });
     }
