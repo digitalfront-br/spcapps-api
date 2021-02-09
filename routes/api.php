@@ -21,6 +21,6 @@ Route::apiResource('categories', CategoryController::class);
 Route::get('categories-questions', [CategoryController::class, 'categoryQuestion']);
 Route::apiResource('questions', QuestionController::class);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

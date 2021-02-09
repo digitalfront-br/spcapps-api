@@ -12,7 +12,13 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-.copyDirectory('resources/images', 'public/avatars')
     .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ])
+    .copyDirectory('resources/images', 'public/avatars');
+
+if (mix.inProduction()) {
+    mix.version();
+}
