@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json(User::with('meetings')->paginate(10), 200);
+        return response()->json(UserResource::collection(User::all()), 200);
     }
 
     /**

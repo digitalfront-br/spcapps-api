@@ -29,7 +29,7 @@ class UserFactory extends Factory
             ['phone' => '31998420055', 'name' => 'José Ricardo', 'email' => 'jrer@uol.com.br']
         );
         foreach ($users as $user) {
-            User::create([
+            $id = User::create([
                 'name' => $user['name'],
                 'email' => $user['email'],
                 'phone' => $user['phone'],
@@ -37,6 +37,9 @@ class UserFactory extends Factory
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
                 'remember_token' => Str::random(10),
             ]);
+            $userId = $id->id;
+            $apitoken = $id->createToken('user-token')->plainTextToken;
+            User::find($userId)->update(['token' => $apitoken]);
         }
         return [];
     }

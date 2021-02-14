@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'roles',
+        'token',
         'profile_photo_path',
         'password',
     ];
@@ -61,4 +62,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function meetings()
+    {
+        return $this->hasMany(Meeting::class);
+    }
 }
