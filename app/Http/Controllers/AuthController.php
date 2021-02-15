@@ -66,20 +66,26 @@ class AuthController extends Controller
             return response()->json(['email' => ['Email já esta cadastrado']], 200);
         } else {
             $user = new User;
-
+            $token = $user->createToken('user-token')->plainTextToken;
             $user->name  = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->password = Hash::make($request->password);
             $user->save();
-            $user->token = $user->createToken('user-token')->plainTextToken;
+            $setUser = User::where('email', $request->email)->first();
+            $setUser->token = $token;
 
             return response()->json(new UserResource($user), 201);
         }
     }
 
-    public function forgotPassword()
+    public function forgotPassword(Request $request)
     {
-        return response()->json('recuperar senha', 200);
+        $setUser = User::where('email', $request->email)->first();
+        if($setUser) {
+            return response()->json(['email' => 'Email Cadastrado'], 200);
+        } else {
+            return response()->json(['email' => 'Email não cadastrado'], 400);
+        }
     }
 }
