@@ -65,15 +65,19 @@ class AuthController extends Controller
         if ($findUser) {
             return response()->json(['email' => ['Email já esta cadastrado']], 200);
         } else {
-            $user = new User;
-            $token = $user->createToken('user-token')->plainTextToken;
-            $user->name  = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->password = Hash::make($request->password);
-            $user->save();
-            $setUser = User::where('email', $request->email)->first();
-            $setUser->token = $token;
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+                'roles' => 0
+            ])->id;
+
+            $u =  User::find($user);
+            $u->token = $u->createToken('user-token')->plainTextToken;
+            $u->update();
+
+            dd($u);
 
             return response()->json(new UserResource($user), 201);
         }
