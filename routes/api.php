@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{MeetingController, AuthController, CategoryController, QuestionController};
+use App\Http\Controllers\{MeetingController, AuthController, CategoryController, QuestionController, UserController};
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('user-meet', [UserController::class, 'meetings']);
     Route::get('questions', [QuestionController::class, 'index']);
     Route::get('categories-questions', [QuestionController::class, 'categoryQuestion']);
     Route::get('meeting', [MeetingController::class, 'index']);

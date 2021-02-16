@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\{UserResource,MeetingResource};
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function meetings()
+    {
+        $u = Auth::user();
+        $user = [
+            'meetings' => MeetingResource::collection($u->meetings),
+        ];
+        return response()->json($user, 200);
+    }
+
     /**
      * Display a listing of the resource.
      *

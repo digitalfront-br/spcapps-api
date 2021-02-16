@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isNull;
 
 class QuestionController extends Controller
 {
@@ -12,9 +15,14 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Question::paginate(50), 200);
+        $query = $request->query('perPage');
+        if(isNull($query)) {
+            return response()->json(QuestionResource::collection(Question::paginate($query)), 200);
+        } else {
+            return response()->json(QuestionResource::collection(Question::all()), 200);
+        }
     }
 
     /**
