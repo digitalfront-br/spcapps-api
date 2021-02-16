@@ -19,9 +19,9 @@ class QuestionController extends Controller
     {
         $query = $request->query('perPage');
         if($query) {
-            return response()->json(QuestionResource::collection(Question::paginate($query)), 200);
+            return response()->json(QuestionResource::collection(Question::orderBy('title', 'ASC')->paginate($query)), 200);
         } else {
-            return response()->json(QuestionResource::collection(Question::all()), 200);
+            return response()->json(QuestionResource::collection(Question::orderBy('title', 'ASC')->get()), 200);
         }
     }
 
