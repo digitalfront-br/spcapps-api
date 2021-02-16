@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = $request->query('perPage');
-        if(isNull($query)) {
+        if($query) {
             return response()->json(CategoryResource::collection(Category::paginate($query)), 200);
         } else {
             return response()->json(CategoryResource::collection(Category::all()), 200);

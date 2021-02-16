@@ -18,7 +18,7 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $query = $request->query('perPage');
-        if(isNull($query)) {
+        if($query) {
             return response()->json(QuestionResource::collection(Question::paginate($query)), 200);
         } else {
             return response()->json(QuestionResource::collection(Question::all()), 200);
