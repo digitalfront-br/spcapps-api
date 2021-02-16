@@ -63,7 +63,7 @@ class AuthController extends Controller
         $findUser = User::where('email', $request->email)->first();
 
         if ($findUser) {
-            return response()->json(['email' => ['Email já esta cadastrado']], 200);
+            return response()->json(['email' => ['Email já esta cadastrado']], 400);
         } else {
             $user = User::create([
                 'name' => $request->name,
