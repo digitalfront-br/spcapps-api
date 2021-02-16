@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(CategoryResource::collection(Category::all()), 200);
+        return response()->json(CategoryResource::collection(Category::paginate()), 200);
     }
 
     /**
