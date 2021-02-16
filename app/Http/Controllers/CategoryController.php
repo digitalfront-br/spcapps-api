@@ -7,6 +7,8 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class CategoryController extends Controller
 {
     /**
@@ -14,9 +16,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(new CategoryCollection(Category::paginate()), 200);
+        $query = $request->query('perPage');
+        if(isNull($query)) {
+            return response()->json(CategoryResource::collection(Category::paginate($query)), 200);
+        } else {
+            return response()->json(CategoryResource::collection(Category::all()), 200);
+        }
     }
 
     /**
