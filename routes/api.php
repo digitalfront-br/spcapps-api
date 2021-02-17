@@ -23,6 +23,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('categories/{id}', [CategoryController::class, 'show']);
     Route::get('user-meet', [UserController::class, 'meetings']);
     Route::get('questions', [QuestionController::class, 'index']);
     Route::get('categories-questions', [QuestionController::class, 'categoryQuestion']);
