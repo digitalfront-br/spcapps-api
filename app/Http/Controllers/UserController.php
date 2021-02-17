@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\{UserResource,MeetingResource};
+use App\Http\Resources\{UserResource,MeetingResource, QuestionResource};
+use App\Models\Meeting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,27 @@ class UserController extends Controller
 
     public function meetings()
     {
-        $u = Auth::user();
+        $u = Meeting::where('user_id', Auth::user()->id)->get();
         $user = [
-            'meetings' => MeetingResource::collection($u->meetings),
+            'meetings' => MeetingResource::collection($u),
         ];
         return response()->json($user, 200);
+    }
+
+    public function meetingsList($id)
+    {
+        $u = Meeting::where('id', $id)->where('user_id', Auth::user()->id)->first();
+        if($u) {
+            $user = [
+                'id' => $u->id,
+                'title' => $u->title,
+                'count' => $u->questions->count(),
+                'questions' => QuestionResource::collection($u->questions)
+            ];
+            return response()->json($user, 200);
+        } else {
+            return response()->json(['error' => ['Sessão não encontrada']], 400);
+        }
     }
 
     /**

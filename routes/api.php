@@ -28,8 +28,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('questions', [QuestionController::class, 'index']);
     Route::get('questions/{id}', [QuestionController::class, 'show']);
     Route::get('categories-questions', [QuestionController::class, 'categoryQuestion']);
-    Route::get('meeting', [MeetingController::class, 'index']);
-    Route::post('meeting', [MeetingController::class, 'store']);
+    Route::get('meetings', [UserController::class, 'meetings']);
+    Route::get('meetings/{id}', [UserController::class, 'meetingsList']);
+    Route::post('meetings', [MeetingController::class, 'store']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
