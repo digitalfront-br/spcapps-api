@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('categories/{id}', [CategoryController::class, 'show']);
     Route::get('user-meet', [UserController::class, 'meetings']);
     Route::get('questions', [QuestionController::class, 'index']);
+    Route::get('questions/{id}', [QuestionController::class, 'show']);
     Route::get('categories-questions', [QuestionController::class, 'categoryQuestion']);
     Route::get('meeting', [MeetingController::class, 'index']);
     Route::post('meeting', [MeetingController::class, 'store']);
