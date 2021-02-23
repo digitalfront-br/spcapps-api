@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\QuestionResource;
-use App\Models\Question;
+use App\Http\Resources\{QuestionResource,QuestionCategoryResource};
+use App\Models\{Category,Question};
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isNull;
 
 class QuestionController extends Controller
 {
+    public function categoryQuestion()
+    {
+        return response()->json(QuestionCategoryResource::collection(Category::all()), 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
